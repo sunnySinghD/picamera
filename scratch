@@ -1,0 +1,7 @@
+# had to setup ffmpeg, http://www.jeffreythompson.org/blog/2014/11/13/installing-ffmpeg-for-raspberry-pi/
+# setting up nginx, https://obsproject.com/forum/resources/how-to-set-up-your-own-private-rtmp-server-using-nginx.50/
+
+
+# raspivid -> ffmpeg, https://www.raspberrypi.org/forums/viewtopic.php?t=45368
+# ffmpeg streaming, https://trac.ffmpeg.org/wiki/StreamingGuide
+raspivid -t -1 -w 960 -h 540 -fps 25 -b 500000 -vf -o - | ffmpeg -i - -vcodec libx264 -an -f flv -metadata streamName=myStream  rtmp:///live/myStream.sdp
