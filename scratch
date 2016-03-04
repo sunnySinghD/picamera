@@ -1,7 +1,26 @@
-# had to setup ffmpeg, http://www.jeffreythompson.org/blog/2014/11/13/installing-ffmpeg-for-raspberry-pi/
-# setting up nginx, https://obsproject.com/forum/resources/how-to-set-up-your-own-private-rtmp-server-using-nginx.50/
+# 1. had to setup ffmpeg, https://www.bitpi.co/2015/08/19/how-to-compile-ffmpeg-on-a-raspberry-pi/
+# skipped the libfaac step to avoid risk of ffmpeg installation failing.
+# sudo apt-get update;
+# sudo apt-get -y --force-yes install libmp3lame-dev libx264-dev yasm git autoconf automake build-essential libass-dev libfreetype6-dev libtheora-dev libtool libvorbis-dev pkg-config texi2html zlib1g-dev
+# cd ffmpeg;
+./configure --enable-libfreetype --enable-gpl --enable-nonfree --enable-libx264 --enable-libass --enable-libmp3lame --bindir="/usr/local/bin"
+# make
+# sudo make install
+
+
+# 2. setting up nginx, install instructions: https://github.com/arut/nginx-rtmp-module/wiki/Getting-started-with-nginx-rtmp
+# got latest of nginx instead of version specified in instructions there
+# https://obsproject.com/forum/resources/how-to-set-up-your-own-private-rtmp-server-using-nginx.50/
+# start: sudo /usr/local/nginx/sbin/nginx
+# stop: sudo /usr/local/nginx/sbin/nginx -s stop
+
+# 3. use remote ftp to use native text editor instead of using nano or some bullshit. https://atom.io/packages/remote-ftp
+# note. cannot save files that require sudo (maybe use root to ftp instead of default user)
 
 
 # raspivid -> ffmpeg, https://www.raspberrypi.org/forums/viewtopic.php?t=45368
 # ffmpeg streaming, https://trac.ffmpeg.org/wiki/StreamingGuide
 raspivid -t -1 -w 960 -h 540 -fps 25 -b 500000 -vf -o - | ffmpeg -i - -vcodec libx264 -an -f flv -metadata streamName=myStream  rtmp:///live/myStream.sdp
+
+# this worked, open network stream in vlc
+ raspivid -n -h 400 -w 400 -t 0 -fps 25 -b 5000000 -vf -hf -o - | ffmpeg -i  - -vcodec copy -an -f flv -metadata streamName=myStream rtmp://localhost/myapp
