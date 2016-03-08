@@ -16,7 +16,7 @@
 
 # 3. use remote ftp to use native text editor instead of using nano or some bullshit. https://atom.io/packages/remote-ftp
 # note. cannot save files that require sudo (maybe use root to ftp instead of default user)
-
+# workaround. commit copies and manually copy them. sudo cp nginx.conf/usr/local/nginx/conf/nginx.conf
 
 # raspivid -> ffmpeg, https://www.raspberrypi.org/forums/viewtopic.php?t=45368
 # ffmpeg streaming, https://trac.ffmpeg.org/wiki/StreamingGuide
