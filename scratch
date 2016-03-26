@@ -23,4 +23,5 @@
 raspivid -t -1 -w 960 -h 540 -fps 25 -b 500000 -vf -o - | ffmpeg -i - -vcodec libx264 -an -f flv -metadata streamName=myStream  rtmp:///live/myStream.sdp
 
 # this worked, open network stream in vlc
- raspivid -n -h 400 -w 400 -t 0 -fps 25 -b 5000000 -vf -hf -o - | ffmpeg -i  - -vcodec copy -an -f flv -metadata streamName=myStream rtmp://localhost/myapp
+ raspivid -n -h 400 -w 400 -t 0 -fps 25 -b 5000000 -vf -hf -o - | ffmpeg -i  - -vcodec copy -an -f flv -metadata streamName=myStream rtmp://localhost/myapp/myStream
+ raspivid -n -h 400 -w 400 -t 0 -fps 25 -b 5000000 -vf -hf -fl -o - | ffmpeg -i  - -vcodec copy -an -f flv -metadata streamName=myStream rtmp://localhost/myapp/myStream
